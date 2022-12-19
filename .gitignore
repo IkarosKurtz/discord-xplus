@@ -1,0 +1,13 @@
+node_modules
+package-lock.json
+.vscode
+.env
+jsdoc.json
+tutorials
+.eslintrc.js
+jsconfig.json
+.prettierrc
+packages.json
+/src/events
+/src/client.js
+/src/index.js
