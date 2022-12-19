@@ -8,5 +8,6 @@ tutorials
 jsconfig.json
 .prettierrc
 packages.json
-/src/events
 /src/client
+package.json
+doc
