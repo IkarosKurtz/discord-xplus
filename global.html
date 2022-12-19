@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Discord Experience: Global</title>
+    
+      <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
+    
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
+    
+</head>
+<body>
+
+<header class="layout-header">
+  
+    <a href="./">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"
+        alt="Discord Experience"
+      >
+    </a>
+  
+  <h1>
+    <a href="./index.html">
+      Discord Experience
+    </a>
+  </h1>
+  <nav class="layout-nav">
+    <ul><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-Getting-started.html">Getting started</a></li></ul><ul><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="LevelManager.html">LevelManager</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#autosave">autosave</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#cacheRanks">cacheRanks</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#client">client</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#addXp">addXp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#getUser">getUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#saveData">saveData</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:bypass">bypass</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:xpAdded">xpAdded</a></span></li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="RankBuilder.html">RankBuilder</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMax">setMax</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMin">setMin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setNameplate">setNameplate</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setValue">setValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toRank">toRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toString">toString</a></span></li></ul><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#LevelManagerOptions">LevelManagerOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#Rank">Rank</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Ranks">Ranks</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Regex">Regex</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UserData">UserData</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UsersDatabase">UsersDatabase</a></span></li>
+  </nav>
+</header>
+
+
+<main class="layout-main ">
+  <div class="container">
+    <p class="page-kind"></p>
+    <h1 class="page-title">Global</h1>
+    
+
+
+
+
+<section>
+
+
+<header class="not-class">
+
+
+    
+        
+        <!-- <h2></h2> -->
+
+        
+
+        
+
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+
+
+
+    
+        
+
+        
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+     
+
+    
+
+    
+
+
+    
+        <h3 class="subtitle">Members</h3>
+
+        
+            
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="Ranks">Ranks<span class="type-signature">Array.&lt;<a href="global.html#Rank">Rank</a>></span></h4>
+
+
+
+
+<div class="description">
+    - Default ranks for the manager
+</div>
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>Array.&lt;<a href="global.html#Rank">Rank</a>></code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="interfaces.js.html">interfaces.js</a><a href="interfaces.js.html#source.74">, line 74</a>
+        </li>
+    </ul>
+
+
+</article>
+        
+            
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="Regex">Regex<span class="type-signature">RegExp</span></h4>
+
+
+
+
+<div class="description">
+    - Validates if the string is a number
+</div>
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>RegExp</code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="interfaces.js.html">interfaces.js</a><a href="interfaces.js.html#source.71">, line 71</a>
+        </li>
+    </ul>
+
+
+</article>
+        
+    
+
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="LevelManagerOptions">LevelManagerOptions</h4>
+
+
+
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>Object</code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">client</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.Client</code>
+    </span>
+    
+
+        
+
+        
+            <span class="param-attributes">
+            
+
+            
+            </span>
+        
+
+        
+            <span class="param-default">
+            
+            </span>
+        
+
+        <div class="param-description">
+            The Discord client
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">mongoURI</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>string</code>
+    </span>
+    
+
+        
+
+        
+            <span class="param-attributes">
+            
+
+            
+            </span>
+        
+
+        
+            <span class="param-default">
+            
+            </span>
+        
+
+        <div class="param-description">
+            The URI to connect to the MongoDB database
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">maxXpToLevelUp</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+            <span class="param-attributes">
+            
+                &lt;optional&gt;<br>
+            
+
+            
+            </span>
+        
+
+        
+            <span class="param-default">
+            
+                <code>2500</code>
+            
+            </span>
+        
+
+        <div class="param-description">
+            The maximum XP to level up (default: 2500)
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">logChannelId</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>string</code>
+    </span>
+    
+
+        
+
+        
+            <span class="param-attributes">
+            
+                &lt;optional&gt;<br>
+            
+
+            
+            </span>
+        
+
+        
+            <span class="param-default">
+            
+            </span>
+        
+
+        <div class="param-description">
+            The ID of the channel to log the events
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">eventsPath</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>string</code>
+    </span>
+    
+
+        
+
+        
+            <span class="param-attributes">
+            
+                &lt;optional&gt;<br>
+            
+
+            
+            </span>
+        
+
+        
+            <span class="param-default">
+            
+            </span>
+        
+
+        <div class="param-description">
+            The path to the events folder (example: ./events/LevelEvents)
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">ranks</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Array.&lt;(<a href="global.html#Rank">Rank</a>|<a href="RankBuilder.html">RankBuilder</a>)></code>
+    </span>
+    
+
+        
+
+        
+            <span class="param-attributes">
+            
+                &lt;optional&gt;<br>
+            
+
+            
+            </span>
+        
+
+        
+            <span class="param-default">
+            
+                <code>Ranks</code>
+            
+            </span>
+        
+
+        <div class="param-description">
+            The ranks of the server (default: Ranks)
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">autosave</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>boolean</code>
+    </span>
+    
+
+        
+
+        
+            <span class="param-attributes">
+            
+                &lt;optional&gt;<br>
+            
+
+            
+            </span>
+        
+
+        
+            <span class="param-default">
+            
+                <code>true</code>
+            
+            </span>
+        
+
+        <div class="param-description">
+            If the manager should autosave the data (default: true)
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+    <h4>Example</h4>
+    
+    <pre><code class="language-js">const Ranks = [	{		nameplate: 'Noobie',		color: 'Red',		min: 0,		max: 9,		value: 0	},	{		nameplate: 'Rookie',		color: 'Orange',		min: 10,		max: 19,		value: 1	}]</code></pre>
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="interfaces.js.html">interfaces.js</a><a href="interfaces.js.html#source.4">, line 4</a>
+        </li>
+    </ul>
+
+
+</article>
+            
+                
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="Rank">Rank</h4>
+
+
+
+
+<div class="description">
+    A rank that the user can have
+</div>
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>Object</code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">nameplate</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>string</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The name of the rank
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">color</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>string</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The color of the rank
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">value</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The value of the rank
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">min</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The minimum XP of the rank
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">max</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The maximum XP of the rank
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="interfaces.js.html">interfaces.js</a><a href="interfaces.js.html#source.45">, line 45</a>
+        </li>
+    </ul>
+
+
+</article>
+            
+                
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="UserData">UserData</h4>
+
+
+
+
+<div class="description">
+    The data that will be saved in the database
+</div>
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>Object</code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">userId</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The ID of the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">username</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>string</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The username of the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">xp</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The XP of the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">level</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The level of the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">maxXpToLevelUp</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The maximum XP to level up
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">messages</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Array.&lt;Discord.Snowflake></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The messages of the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">rank</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code><a href="global.html#Rank">Rank</a></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The rank of the user
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="interfaces.js.html">interfaces.js</a><a href="interfaces.js.html#source.33">, line 33</a>
+        </li>
+    </ul>
+
+
+</article>
+            
+                
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="UsersDatabase">UsersDatabase</h4>
+
+
+
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>Object</code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">guildId</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The ID of the guild
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">data</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Array.&lt;<a href="global.html#UserData">UserData</a>></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The data of the users
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="interfaces.js.html">interfaces.js</a><a href="interfaces.js.html#source.55">, line 55</a>
+        </li>
+    </ul>
+
+
+</article>
+            
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+  </div>
+</main>
+
+<footer class="layout-footer">
+  <div class="container">
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Mon Dec 19 2022 01:05:49 GMT-0600 (hora estándar central)
+  </div>
+</footer>
+
+
+
+<script src="scripts/prism.dev.js"></script>
+</body>
+</html>

@@ -1,0 +1,2811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Discord Experience: LevelManager</title>
+    
+      <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
+    
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
+    
+</head>
+<body>
+
+<header class="layout-header">
+  
+    <a href="./">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"
+        alt="Discord Experience"
+      >
+    </a>
+  
+  <h1>
+    <a href="./index.html">
+      Discord Experience
+    </a>
+  </h1>
+  <nav class="layout-nav">
+    <ul><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-Getting-started.html">Getting started</a></li></ul><ul><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="LevelManager.html">LevelManager</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#autosave">autosave</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#cacheRanks">cacheRanks</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#client">client</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#addXp">addXp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#getUser">getUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#saveData">saveData</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:bypass">bypass</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:xpAdded">xpAdded</a></span></li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="RankBuilder.html">RankBuilder</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMax">setMax</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMin">setMin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setNameplate">setNameplate</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setValue">setValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toRank">toRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toString">toString</a></span></li></ul><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#LevelManagerOptions">LevelManagerOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#Rank">Rank</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Ranks">Ranks</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Regex">Regex</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UserData">UserData</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UsersDatabase">UsersDatabase</a></span></li>
+  </nav>
+</header>
+
+
+<main class="layout-main ">
+  <div class="container">
+    <p class="page-kind">Class</p>
+    <h1 class="page-title">LevelManager</h1>
+    
+
+
+
+
+<section>
+
+
+<header class="class">
+
+
+    
+        
+        <!-- <h2>LevelManager</h2> -->
+
+        
+            <h5>Extends</h5>
+            
+
+
+    <ul>
+        <li>EventEmitter</li>
+    </ul>
+
+
+        
+
+        
+
+        
+            
+            <div class="class-description">Create a manager for levels and manipulate users' data</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+
+
+
+    
+        
+
+
+
+
+
+    
+
+
+    
+    <h3 class="subtitle">Constructor</h3>
+    
+
+    <div class="method-type">
+    
+    </div>
+
+    <h4 class="method-name" id="LevelManager">new LevelManager<span class="signature">(options, discordClient)</span><span class="return-type-signature"></span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Creates an instance of LevelManager.
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">options</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code><a href="global.html#LevelManagerOptions">LevelManagerOptions</a></code>
+    </span>
+    
+
+            
+
+            
+
+            
+
+            <div class="param-description">The options for the manager</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">discordClient</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Client</code>
+    </span>
+    
+
+            
+
+            
+
+            
+
+            <div class="param-description">The Discord client</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.18">, line 18</a>
+        </li>
+    </ul>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+     
+
+    
+
+    
+
+
+    
+        <h3 class="subtitle">Members</h3>
+
+        
+            
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="autosave">autosave<span class="type-signature">boolean</span></h4>
+
+
+
+
+<div class="description">
+    - If the manager will save the data automatically
+</div>
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>boolean</code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.74">, line 74</a>
+        </li>
+    </ul>
+
+
+</article>
+        
+            
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="cacheRanks">cacheRanks<span class="type-signature">Array.&lt;<a href="global.html#Rank">Rank</a>></span></h4>
+
+
+
+
+<div class="description">
+    - The ranks of the server
+</div>
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>Array.&lt;<a href="global.html#Rank">Rank</a>></code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.68">, line 68</a>
+        </li>
+    </ul>
+
+
+</article>
+        
+            
+
+<article class="member">
+    <div class="method-type">
+        
+    </div>
+<h4 class="member-name" id="client">client<span class="type-signature">Discord.Client</span></h4>
+
+
+
+
+<div class="description">
+    - The Discord client
+</div>
+
+
+
+    <h4>Type</h4>
+    <ul>
+        <li>
+            
+
+
+    <span class="param-type">
+        <code>Discord.Client</code>
+    </span>
+    
+
+        </li>
+    </ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <h4>Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.30">, line 30</a>
+        </li>
+    </ul>
+
+
+</article>
+        
+    
+
+    
+        <h3 class="subtitle">Methods</h3>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="addXp">addXp<span class="signature">(xp, userId, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;void>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Add xp to a user, also check if the user has leveled up
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">xp</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The xp to add, only positive and integer numbers</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">userId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The user id</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+                    <span class="param-default">
+                        global
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;void></code>
+            
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+<h4 class="method-heading">Fires</h4>
+<ul>
+    <li><a href="LevelManager.html#event:levelUp">LevelManager#event:levelUp</a></li>
+
+    <li><a href="LevelManager.html#event:xpAdded">LevelManager#event:xpAdded</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.320">, line 320</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="degradeLevel">degradeLevel<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Degrade the level of a user, reset the xp to 0 and check if the user reach the min level of the rank
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">userId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The user id</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">author</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The author of the command/action</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+                    <span class="param-default">
+                        global
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;boolean></code>
+            
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+<h4 class="method-heading">Fires</h4>
+<ul>
+    <li><a href="LevelManager.html#event:degradeLevel">LevelManager#event:degradeLevel</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.413">, line 413</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="degradeRank">degradeRank<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Degrade a user manually
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">userId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The user id</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">author</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The author of the command/action</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+                    <span class="param-default">
+                        global
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;boolean></code>
+            
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+<h4 class="method-heading">Fires</h4>
+<ul>
+    <li><a href="LevelManager.html#event:degradeRank">LevelManager#event:degradeRank</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.489">, line 489</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="getUser">getUser<span class="signature">(userId, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;<a href="global.html#UserData">UserData</a>>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Get a user from the cache, if the user doesn't exist it will be created
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">userId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+
+            <div class="param-description">The user id</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+
+            <div class="param-description">The guild id</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;UserData></code>
+            
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.300">, line 300</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="levelUp">levelUp<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Level up a user manually, reset the xp to 0 and check if the user reach the max level of the rank
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">userId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The user id</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">author</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The author of the command/action</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+                    <span class="param-default">
+                        global
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;boolean></code>
+            
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+<h4 class="method-heading">Fires</h4>
+<ul>
+    <li><a href="LevelManager.html#event:bypass">LevelManager#event:bypass</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.370">, line 370</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="rankUp">rankUp<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Rank up a user manually
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">userId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The user id</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">author</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+            
+
+            <div class="param-description">The author of the command/action</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+
+            
+                
+                    <span class="param-default">
+                        global
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;boolean></code>
+            
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+<h4 class="method-heading">Fires</h4>
+<ul>
+    <li><a href="LevelManager.html#event:rankUp">LevelManager#event:rankUp</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.455">, line 455</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="saveData">saveData<span class="signature">()</span><span class="return-type-signature"> &rarr; {Promise.&lt;void>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Save the cache into the database
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;void></code>
+            
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.233">, line 233</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+    
+
+    
+
+    
+        <h3 class="subtitle">Events</h3>
+
+        
+            
+
+<article class="event">
+	<div class="event-type">
+		
+	</div>
+
+	<h4 class="event-name" id="event:bypass">
+		bypass
+	</h4>
+
+	
+	<div class="event-description">
+			Level up event, emitted when a user levels up
+	</div>
+	
+
+	
+
+	
+
+	
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">author</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user that leveled up the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">user</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user that leveled up
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">userData</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code><a href="global.html#UserData">UserData</a></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user data
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+</article>
+
+        
+            
+
+<article class="event">
+	<div class="event-type">
+		
+	</div>
+
+	<h4 class="event-name" id="event:degradeLevel">
+		degradeLevel
+	</h4>
+
+	
+	<div class="event-description">
+			Degrade event, emitted when a user degrade another user
+	</div>
+	
+
+	
+
+	
+
+	
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">author</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The author that degraded the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">user</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user that degraded
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">userData</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code><a href="global.html#UserData">UserData</a></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user data
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+</article>
+
+        
+            
+
+<article class="event">
+	<div class="event-type">
+		
+	</div>
+
+	<h4 class="event-name" id="event:degradeRank">
+		degradeRank
+	</h4>
+
+	
+	<div class="event-description">
+			Degrade rank event, emitted when a user degrade the rank of another user
+	</div>
+	
+
+	
+
+	
+
+	
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">author</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The author that degrade the rank of the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">user</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user that degrade the rank
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">userData</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code><a href="global.html#UserData">UserData</a></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user data
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+</article>
+
+        
+            
+
+<article class="event">
+	<div class="event-type">
+		
+	</div>
+
+	<h4 class="event-name" id="event:levelUp">
+		levelUp
+	</h4>
+
+	
+	<div class="event-description">
+			Level up event, emitted when a user levels up
+	</div>
+	
+
+	
+
+	
+
+	
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">user</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user that leveled up
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">userData</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code><a href="global.html#UserData">UserData</a></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user data
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+</article>
+
+        
+            
+
+<article class="event">
+	<div class="event-type">
+		
+	</div>
+
+	<h4 class="event-name" id="event:rankUp">
+		rankUp
+	</h4>
+
+	
+	<div class="event-description">
+			Rank up event, emitted when a user rank up another user
+	</div>
+	
+
+	
+
+	
+
+	
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">author</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The author that rank up the user
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">user</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.User</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user that rank up
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">userData</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code><a href="global.html#UserData">UserData</a></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user data
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+</article>
+
+        
+            
+
+<article class="event">
+	<div class="event-type">
+		
+	</div>
+
+	<h4 class="event-name" id="event:xpAdded">
+		xpAdded
+	</h4>
+
+	
+	<div class="event-description">
+			Xp added event, emitted when xp is added to a user
+	</div>
+	
+
+	
+
+	
+
+	
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">user</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code><a href="global.html#UserData">UserData</a></code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The user that received the xp
+        </div>
+
+    </li>
+    
+
+    <li>
+        
+            <span class="param-name">xp</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The xp that was added
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+</article>
+
+        
+    
+</article>
+
+</section>
+
+
+
+
+  </div>
+</main>
+
+<footer class="layout-footer">
+  <div class="container">
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Mon Dec 19 2022 01:05:49 GMT-0600 (hora estándar central)
+  </div>
+</footer>
+
+
+
+<script src="scripts/prism.dev.js"></script>
+</body>
+</html>
