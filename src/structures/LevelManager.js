@@ -4,12 +4,12 @@ const Users = require('../model')
 const { connect } = require('mongoose')
 const { readdirSync } = require('fs')
 const { Ranks, Regex, LevelManagerEvents } = require('./interfaces')
-const { RankBuilder } = require('../structures/Rank')
+const { RankBuilder } = require('./Rank')
 
-/** @typedef {import('..').UsersDatabase} UsersDatabase */
-/** @typedef {import('..').Rank} Rank */
-/** @typedef {import('..').UserData} UserData */
-/** @typedef {import('..').LevelManagerOptions} LevelManagerOptions */
+/** @typedef {import('../../typings').UsersDatabase} UsersDatabase */
+/** @typedef {import('../../typings').Rank} Rank */
+/** @typedef {import('../../typings').UserData} UserData */
+/** @typedef {import('../../typings').LevelManagerOptions} LevelManagerOptions */
 
 /**
  * Create a manager for levels and manipulate users' data

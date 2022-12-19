@@ -9,5 +9,4 @@ jsconfig.json
 .prettierrc
 packages.json
 /src/events
-/src/client.js
-/src/index.js
+/src/client

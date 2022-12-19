@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const { RankBuilder } = require('..')
+const { RankBuilder } = require('./Rank')
 
 /**
  * @typedef {Object} LevelManagerOptions

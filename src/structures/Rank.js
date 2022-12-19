@@ -1,4 +1,4 @@
-/** @typedef {import("./interfaces").Rank} Rank */
+/** @typedef {import("../../typings").Rank} Rank */
 
 /** Create a new rank to be used in the level manager */
 class RankBuilder {
