@@ -41,6 +41,8 @@ npm update discord-xplus
 
 # Changelog
 
+### - **21 December (v 1.1.1)** => Fixed bug that causes an autosave every 10 seconds, now it works with the constructor option.
+
 ### - **21 December 2022 (v 1.1.0)** => Added new methods, it is now possible to create custom ranks and add them to the admin, you can also modify the function that calculates the xp to level up, basically constructor options has been modified.
 
-### - **20 December 2022 (v 1.1.0)** => Six new ranks and better saving system, it is now possible to save custom ranks in each guild or if you prefer you can save them as global ranks (every new guild has the global ranks but only if you modified it if not then they will be the default ones)
+### - **20 December 2022 (v 1.1.0)** => Six new ranks and better saving system, it is now possible to save custom ranks in each guild or if you prefer you can save them as global ranks (every new guild has the global ranks but only if you modified it if not then they will be the default ones).

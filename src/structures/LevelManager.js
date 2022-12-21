@@ -241,7 +241,7 @@ class LevelManager extends EventEmitter {
 
 				setInterval(async () => {
 					if (this._autosave) await this.saveData()
-				}, 10_000)
+				}, this._msToSave)
 
 				/**
 				 * Emitted when the manager is ready.

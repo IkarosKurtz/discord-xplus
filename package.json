@@ -1,14 +1,24 @@
 {
 	"name": "discord-xplus",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "LevelManager for Discord.js using MongoDB as database, also handle some events for best experience",
 	"main": "./src/index.js",
 	"types": "./typings/index.d.ts",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"files": ["src", "typings"],
-	"keywords": ["discord", "xp", "level", "manager", "mongodb", "node"],
+	"files": [
+		"src",
+		"typings"
+	],
+	"keywords": [
+		"discord",
+		"xp",
+		"level",
+		"manager",
+		"mongodb",
+		"node"
+	],
 	"author": "IkarosKurtz",
 	"license": "MIT",
 	"dependencies": {
