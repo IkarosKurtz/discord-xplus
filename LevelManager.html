@@ -2,11 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Discord Experience: LevelManager</title>
+    <title>Discord XPlus: LevelManager</title>
     
       <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
     
     <link type="text/css" rel="stylesheet" href="styles/styles.css">
+    
+    
+    <style>
+      :root {
+      
+      
+        --secondary-color: #ca2d00;
+      
+      
+        --text-color: #111;
+      
+      
+        --primary-color: blue;
+      
+      
+        --heading-color: var(--primary-color);
+      
+      
+        --heading-background: #111;
+      
+      }
+    </style>
     
 </head>
 <body>
@@ -16,17 +38,17 @@
     <a href="./">
       <img
         src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"
-        alt="Discord Experience"
+        alt="Discord XPlus"
       >
     </a>
   
   <h1>
     <a href="./index.html">
-      Discord Experience
+      Discord XPlus
     </a>
   </h1>
   <nav class="layout-nav">
-    <ul><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-Getting-started.html">Getting started</a></li></ul><ul><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="LevelManager.html">LevelManager</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#autosave">autosave</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#cacheRanks">cacheRanks</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#client">client</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#addXp">addXp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#getUser">getUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#saveData">saveData</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:bypass">bypass</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:xpAdded">xpAdded</a></span></li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="RankBuilder.html">RankBuilder</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMax">setMax</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMin">setMin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setNameplate">setNameplate</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setValue">setValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toRank">toRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toString">toString</a></span></li></ul><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#LevelManagerOptions">LevelManagerOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#Rank">Rank</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Ranks">Ranks</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Regex">Regex</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UserData">UserData</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UsersDatabase">UsersDatabase</a></span></li>
+    <ul><li class="nav-heading">Tutorials</li><li class="nav-item"><a href="tutorial-Getting-started.html">Getting started</a></li><li class="nav-item"><a href="tutorial-Level-events.html">Events and eventsPath</a></li><li class="nav-item"><a href="tutorial-Saving-data.html">How works the saving system</a></li><li class="nav-item"><a href="tutorial-ranks.html">How works ranks</a></li></ul><ul><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="LevelManager.html">LevelManager</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#autosave">autosave</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="LevelManager.html#defaultRanks">defaultRanks</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#addXp">addXp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#appendRank">appendRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#getUser">getUser</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#leaderboard">leaderboard</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#ranksOf">ranksOf</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#removeRank">removeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="LevelManager.html#saveData">saveData</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:bypass">bypass</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeLevel">degradeLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:degradeRank">degradeRank</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:levelUp">levelUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:managerReady">managerReady</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:rankUp">rankUp</a></span></li><li class="nav-item"><span class="nav-item-type type-event" title="event">E</span><span class="nav-item-name is-event"><a href="LevelManager.html#event:xpAdded">xpAdded</a></span></li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="RankBuilder.html">RankBuilder</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setColor">setColor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMax">setMax</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setMin">setMin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setNameplate">setNameplate</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#setValue">setValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toJSON">toJSON</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="RankBuilder.html#toString">toString</a></span></li></ul><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#LevelManagerOptions">LevelManagerOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#Rank">Rank</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Ranks">Ranks</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="global.html#Regex">Regex</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UserData">UserData</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#UsersDatabase">UsersDatabase</a></span></li><li class="nav-item"><span class="nav-item-type type-typedef" title="typedef">T</span><span class="nav-item-name is-typedef"><a href="global.html#xpFunction">xpFunction</a></span></li>
   </nav>
 </header>
 
@@ -66,7 +88,7 @@
 
         
             
-            <div class="class-description">Create a manager for levels and manipulate users' data</div>
+            <div class="class-description">Creates a LevelManager, this is the main class, when you create a new instance of this class, it will automatically connect to the database and load the users(if you already used the manager), also will load the events if you specified the path to the events folder in the options, but if you don't have a folderor you doesn't know how it works, you can visit <a href="tutorial-Level-events.html">Events and eventsPath</a> to learn how to create and use events.</div>
         
     
 </header>
@@ -94,7 +116,7 @@
     
     </div>
 
-    <h4 class="method-name" id="LevelManager">new LevelManager<span class="signature">(options, discordClient)</span><span class="return-type-signature"></span>
+    <h4 class="method-name" id="LevelManager">new LevelManager<span class="signature">(client, options)</span><span class="return-type-signature"></span>
     </h4>
 
 
@@ -122,6 +144,32 @@
 
         <li>
             
+                <span class="param-name">client</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Client</code>
+    </span>
+    
+
+            
+
+            
+
+            
+
+            <div class="param-description">The Discord client or a custom client of Discord.js.</div>
+            
+        </li>
+
+    
+
+        <li>
+            
                 <span class="param-name">options</span>
             
 
@@ -140,33 +188,7 @@
 
             
 
-            <div class="param-description">The options for the manager</div>
-            
-        </li>
-
-    
-
-        <li>
-            
-                <span class="param-name">discordClient</span>
-            
-
-            
-                
-
-
-    <span class="param-type">
-        <code>Discord.Client</code>
-    </span>
-    
-
-            
-
-            
-
-            
-
-            <div class="param-description">The Discord client</div>
+            <div class="param-description">The options for the manager.</div>
             
         </li>
 
@@ -229,7 +251,7 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.18">, line 18</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.21">, line 21</a>
         </li>
     </ul>
 
@@ -265,7 +287,7 @@
 
 
 <div class="description">
-    - If the manager will save the data automatically
+    Indicates if the manager saves the data automatically, by default it is every 3 hours, but you can change it.
 </div>
 
 
@@ -329,7 +351,7 @@
     <h4>Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.74">, line 74</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.161">, line 161</a>
         </li>
     </ul>
 
@@ -342,13 +364,13 @@
     <div class="method-type">
         
     </div>
-<h4 class="member-name" id="cacheRanks">cacheRanks<span class="type-signature">Array.&lt;<a href="global.html#Rank">Rank</a>></span></h4>
+<h4 class="member-name" id="defaultRanks">defaultRanks<span class="type-signature">Array.&lt;<a href="global.html#Rank">Rank</a>></span></h4>
 
 
 
 
 <div class="description">
-    - The ranks of the server
+    Default ranks of the manager, it can be the default ranks or the ranks that you specified in the options, if you change this, it will be overwrite the default ranks.
 </div>
 
 
@@ -412,90 +434,7 @@
     <h4>Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.68">, line 68</a>
-        </li>
-    </ul>
-
-
-</article>
-        
-            
-
-<article class="member">
-    <div class="method-type">
-        
-    </div>
-<h4 class="member-name" id="client">client<span class="type-signature">Discord.Client</span></h4>
-
-
-
-
-<div class="description">
-    - The Discord client
-</div>
-
-
-
-    <h4>Type</h4>
-    <ul>
-        <li>
-            
-
-
-    <span class="param-type">
-        <code>Discord.Client</code>
-    </span>
-    
-
-        </li>
-    </ul>
-
-
-
-
-
-<div class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</div>
-
-
-
-
-
-
-
-    <h4>Source</h4>
-    <ul>
-        <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.30">, line 30</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.180">, line 180</a>
         </li>
     </ul>
 
@@ -525,7 +464,7 @@
     <span class="method-type-signature is-async">async</span>
     </div>
 
-    <h4 class="method-name" id="addXp">addXp<span class="signature">(xp, userId, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;void>}</span>
+    <h4 class="method-name" id="addXp">addXp<span class="signature">(xp, userId, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Promise.&lt;void>}</span>
     </h4>
 
 
@@ -534,7 +473,7 @@
 
 <div class="method-description">
     
-    Add xp to a user, also check if the user has leveled up
+    Adds xp to a user, then will be saved, for more info check <a href="tutorial-Saving-data.html">How works the saving system</a>.
 </div>
 
 
@@ -568,12 +507,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The xp to add, only positive and integer numbers</div>
+            <div class="param-description">The xp to add, only positive and integer numbers.</div>
             
         </li>
 
@@ -596,12 +543,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The user id</div>
+            <div class="param-description">The user id.</div>
             
         </li>
 
@@ -624,16 +579,26 @@
             
 
             
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
                     <span class="param-default">
-                        global
+                        "global"
                     </span>
                 
             
 
-            <div class="param-description">The guild id</div>
+            <div class="param-description">The guild id.</div>
             
         </li>
 
@@ -702,6 +667,8 @@
     <li><a href="LevelManager.html#event:levelUp">LevelManager#event:levelUp</a></li>
 
     <li><a href="LevelManager.html#event:xpAdded">LevelManager#event:xpAdded</a></li>
+
+    <li><a href="LevelManager.html#event:rankUp">LevelManager#event:rankUp</a></li>
 </ul>
 
 
@@ -715,7 +682,208 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.320">, line 320</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.447">, line 447</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    
+    </div>
+
+    <h4 class="method-name" id="appendRank">appendRank<span class="signature">(ranks, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Array.&lt;<a href="global.html#Rank">Rank</a>>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Append ranks to the manager and re-sort the ranks by their value and it can be RankBuilder or Rank object, for more info about ranks check <a href="tutorial-ranks.html">How works ranks</a>.
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">ranks</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Array.&lt;(<a href="global.html#Rank">Rank</a>|<a href="RankBuilder.html">RankBuilder</a>)></code>
+    </span>
+    
+
+            
+
+            
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
+
+            
+                
+            
+
+            <div class="param-description">Array of ranks to append.</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
+
+            
+                
+                    <span class="param-default">
+                        "global"
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id.</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Array.&lt;Rank></code>
+            
+            
+                - The new sorted ranks.
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.736">, line 736</a>
         </li>
     </ul>
 
@@ -741,7 +909,7 @@
     <span class="method-type-signature is-async">async</span>
     </div>
 
-    <h4 class="method-name" id="degradeLevel">degradeLevel<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    <h4 class="method-name" id="degradeLevel">degradeLevel<span class="signature">(userId, author, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
     </h4>
 
 
@@ -750,7 +918,7 @@
 
 <div class="method-description">
     
-    Degrade the level of a user, reset the xp to 0 and check if the user reach the min level of the rank
+    Degrade the level of a user, reset the xp to 0 and check if the user reach the min level of the rank.
 </div>
 
 
@@ -784,12 +952,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The user id</div>
+            <div class="param-description">The user id.</div>
             
         </li>
 
@@ -812,12 +988,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The author of the command/action</div>
+            <div class="param-description">The author of the command/action.</div>
             
         </li>
 
@@ -840,16 +1024,26 @@
             
 
             
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
                     <span class="param-default">
-                        global
+                        "global"
                     </span>
                 
             
 
-            <div class="param-description">The guild id</div>
+            <div class="param-description">The guild id.</div>
             
         </li>
 
@@ -901,6 +1095,8 @@
             
                 <code>Promise.&lt;boolean></code>
             
+            
+                - If the user has been degraded or if an error occurred.
             
         </li>
     
@@ -916,6 +1112,8 @@
 <h4 class="method-heading">Fires</h4>
 <ul>
     <li><a href="LevelManager.html#event:degradeLevel">LevelManager#event:degradeLevel</a></li>
+
+    <li><a href="LevelManager.html#event:rankUp">LevelManager#event:rankUp</a></li>
 </ul>
 
 
@@ -929,7 +1127,7 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.413">, line 413</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.561">, line 561</a>
         </li>
     </ul>
 
@@ -955,7 +1153,7 @@
     <span class="method-type-signature is-async">async</span>
     </div>
 
-    <h4 class="method-name" id="degradeRank">degradeRank<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    <h4 class="method-name" id="degradeRank">degradeRank<span class="signature">(userId, author, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
     </h4>
 
 
@@ -964,7 +1162,7 @@
 
 <div class="method-description">
     
-    Degrade a user manually
+    Degrade a user manually, for more info about ranks check <a href="tutorial-ranks.html">How works ranks</a>.You can't degrade a user if he is already in the lowest rank.
 </div>
 
 
@@ -998,12 +1196,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The user id</div>
+            <div class="param-description">The user id.</div>
             
         </li>
 
@@ -1026,12 +1232,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The author of the command/action</div>
+            <div class="param-description">The author of the command/action.</div>
             
         </li>
 
@@ -1054,16 +1268,26 @@
             
 
             
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
                     <span class="param-default">
-                        global
+                        "global"
                     </span>
                 
             
 
-            <div class="param-description">The guild id</div>
+            <div class="param-description">The guild id.</div>
             
         </li>
 
@@ -1115,6 +1339,8 @@
             
                 <code>Promise.&lt;boolean></code>
             
+            
+                - If the user has been degraded or if an error occurred.
             
         </li>
     
@@ -1143,7 +1369,7 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.489">, line 489</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.652">, line 652</a>
         </li>
     </ul>
 
@@ -1169,7 +1395,7 @@
     <span class="method-type-signature is-async">async</span>
     </div>
 
-    <h4 class="method-name" id="getUser">getUser<span class="signature">(userId, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;<a href="global.html#UserData">UserData</a>>}</span>
+    <h4 class="method-name" id="getUser">getUser<span class="signature">(userId, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Promise.&lt;<a href="global.html#UserData">UserData</a>>}</span>
     </h4>
 
 
@@ -1178,7 +1404,7 @@
 
 <div class="method-description">
     
-    Get a user from the cache, if the user doesn't exist it will be created
+    Get a user from the cache, if the user doesn't exist it will be created and then will be saved automatically, for more info check <a href="tutorial-Saving-data.html">How works the saving system</a>.
 </div>
 
 
@@ -1212,10 +1438,20 @@
             
 
             
+                <span class="param-attributes">
+                
 
+                
+
+                
+                </span>
             
 
-            <div class="param-description">The user id</div>
+            
+                
+            
+
+            <div class="param-description">The user id.</div>
             
         </li>
 
@@ -1238,10 +1474,26 @@
             
 
             
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
 
+                
+
+                
+                </span>
             
 
-            <div class="param-description">The guild id</div>
+            
+                
+                    <span class="param-default">
+                        "global"
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id.</div>
             
         </li>
 
@@ -1294,6 +1546,8 @@
                 <code>Promise.&lt;UserData></code>
             
             
+                - User's data.
+            
         </li>
     
     </ul>
@@ -1316,7 +1570,7 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.300">, line 300</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.426">, line 426</a>
         </li>
     </ul>
 
@@ -1342,7 +1596,7 @@
     <span class="method-type-signature is-async">async</span>
     </div>
 
-    <h4 class="method-name" id="levelUp">levelUp<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    <h4 class="method-name" id="leaderboard">leaderboard<span class="signature">(limit<span class="signature-attributes">opt</span>, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#UserData">UserData</a>>>}</span>
     </h4>
 
 
@@ -1351,7 +1605,214 @@
 
 <div class="method-description">
     
-    Level up a user manually, reset the xp to 0 and check if the user reach the max level of the rank
+    Get guild leaderboard or global leaderboard, get as many users as you want
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">limit</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>number</code>
+    </span>
+    
+
+            
+
+            
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
+
+            
+                
+                    <span class="param-default">
+                        10
+                    </span>
+                
+            
+
+            <div class="param-description">The number of users that you want to get.</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
+
+            
+                
+                    <span class="param-default">
+                        "global"
+                    </span>
+                
+            
+
+            <div class="param-description">Id of the guild that you want to get the leaderboard.</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Promise.&lt;Array.&lt;UserData>></code>
+            
+            
+                - The users data.
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.692">, line 692</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    <span class="method-type-signature is-async">async</span>
+    </div>
+
+    <h4 class="method-name" id="levelUp">levelUp<span class="signature">(userId, author, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Level up a user manually, reset the xp to 0 and check if the user reach the max level of the rank.If the user has reached the maximum rank, they will be able to continue leveling up.
 </div>
 
 
@@ -1385,12 +1846,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The user id</div>
+            <div class="param-description">The user id.</div>
             
         </li>
 
@@ -1413,12 +1882,20 @@
             
 
             
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
             
 
-            <div class="param-description">The author of the command/action</div>
+            <div class="param-description">The author of the command/action.</div>
             
         </li>
 
@@ -1441,16 +1918,26 @@
             
 
             
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
                     <span class="param-default">
-                        global
+                        "global"
                     </span>
                 
             
 
-            <div class="param-description">The guild id</div>
+            <div class="param-description">The guild id.</div>
             
         </li>
 
@@ -1502,6 +1989,8 @@
             
                 <code>Promise.&lt;boolean></code>
             
+            
+                - If the user has leveled up or if an error occurred.
             
         </li>
     
@@ -1517,6 +2006,8 @@
 <h4 class="method-heading">Fires</h4>
 <ul>
     <li><a href="LevelManager.html#event:bypass">LevelManager#event:bypass</a></li>
+
+    <li><a href="LevelManager.html#event:rankUp">LevelManager#event:rankUp</a></li>
 </ul>
 
 
@@ -1530,7 +2021,7 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.370">, line 370</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.509">, line 509</a>
         </li>
     </ul>
 
@@ -1556,7 +2047,7 @@
     <span class="method-type-signature is-async">async</span>
     </div>
 
-    <h4 class="method-name" id="rankUp">rankUp<span class="signature">(userId, author, guildId)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+    <h4 class="method-name" id="rankUp">rankUp<span class="signature">(userId, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Promise.&lt;boolean>}</span>
     </h4>
 
 
@@ -1565,7 +2056,7 @@
 
 <div class="method-description">
     
-    Rank up a user manually
+    Promote a user manually, for more info about ranks check <a href="tutorial-ranks.html">How works ranks</a>.
 </div>
 
 
@@ -1599,40 +2090,20 @@
             
 
             
-
-            
-                
-            
-
-            <div class="param-description">The user id</div>
-            
-        </li>
-
-    
-
-        <li>
-            
-                <span class="param-name">author</span>
-            
-
-            
+                <span class="param-attributes">
                 
 
+                
 
-    <span class="param-type">
-        <code>Discord.User</code>
-    </span>
-    
-
-            
-
+                
+                </span>
             
 
             
                 
             
 
-            <div class="param-description">The author of the command/action</div>
+            <div class="param-description">The user id.</div>
             
         </li>
 
@@ -1655,16 +2126,26 @@
             
 
             
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
 
             
                 
                     <span class="param-default">
-                        global
+                        "global"
                     </span>
                 
             
 
-            <div class="param-description">The guild id</div>
+            <div class="param-description">The guild id.</div>
             
         </li>
 
@@ -1716,6 +2197,8 @@
             
                 <code>Promise.&lt;boolean></code>
             
+            
+                - If the user has been promoted or if an error occurred.
             
         </li>
     
@@ -1744,7 +2227,373 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.455">, line 455</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.611">, line 611</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    
+    </div>
+
+    <h4 class="method-name" id="ranksOf">ranksOf<span class="signature">(guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Array.&lt;<a href="global.html#Rank">Rank</a>>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Get the ranks of a guild or default ranks, for more info about ranks check <a href="tutorial-ranks.html">How works ranks</a>.
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
+
+            
+                
+                    <span class="param-default">
+                        "global"
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id.</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Array.&lt;Rank></code>
+            
+            
+                - Ranks in guild.
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.720">, line 720</a>
+        </li>
+    </ul>
+
+
+
+    </article>
+
+        
+            
+
+
+    <article class="method">
+
+
+
+
+    
+
+
+    
+
+    <div class="method-type">
+    
+    </div>
+
+    <h4 class="method-name" id="removeRank">removeRank<span class="signature">(values, guildId<span class="signature-attributes">opt</span>)</span><span class="return-type-signature"> &rarr; {Array.&lt;<a href="global.html#Rank">Rank</a>>}</span>
+    </h4>
+
+
+
+
+
+<div class="method-description">
+    
+    Remove ranks from the manager and re-sort the ranks by their value, for more info about ranks check <a href="tutorial-ranks.html">How works ranks</a>.
+</div>
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Parameters</h4>
+    
+
+<ul class="method-params">
+    
+
+        <li>
+            
+                <span class="param-name">values</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Array.&lt;number></code>
+    </span>
+    
+
+            
+
+            
+                <span class="param-attributes">
+                
+
+                
+
+                
+                </span>
+            
+
+            
+                
+            
+
+            <div class="param-description">Property value of the ranks to remove.</div>
+            
+        </li>
+
+    
+
+        <li>
+            
+                <span class="param-name">guildId</span>
+            
+
+            
+                
+
+
+    <span class="param-type">
+        <code>Discord.Snowflake</code>
+    </span>
+    
+
+            
+
+            
+                <span class="param-attributes">
+                
+                    &lt;optional&gt;<br>
+                
+
+                
+
+                
+                </span>
+            
+
+            
+                
+                    <span class="param-default">
+                        "global"
+                    </span>
+                
+            
+
+            <div class="param-description">The guild id.</div>
+            
+        </li>
+
+    
+</ul>
+
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+    <h4 class="method-heading">Returns</h4>
+    <ul>
+    
+        <li class="method-returns">
+            
+                <code>Array.&lt;Rank></code>
+            
+            
+                - The new sorted ranks.
+            
+        </li>
+    
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h4 class="method-heading">Source</h4>
+    <ul>
+        <li class="method-source">
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.778">, line 778</a>
         </li>
     </ul>
 
@@ -1779,7 +2628,7 @@
 
 <div class="method-description">
     
-    Save the cache into the database
+    Save all the data from the cache to the database and overwrite the data if it already exists, more info <a href="tutorial-Saving-data.html">How works the saving system</a>.
 </div>
 
 
@@ -1858,7 +2707,7 @@
     <h4 class="method-heading">Source</h4>
     <ul>
         <li class="method-source">
-            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.233">, line 233</a>
+            <a href="LevelManager.js.html">LevelManager.js</a><a href="LevelManager.js.html#source.382">, line 382</a>
         </li>
     </ul>
 
@@ -1888,7 +2737,7 @@
 
 	
 	<div class="event-description">
-			Level up event, emitted when a user levels up
+			Emitted when a user has leveled up by another person like an admin or a moderator (staff)..
 	</div>
 	
 
@@ -1926,7 +2775,7 @@
         
 
         <div class="param-description">
-            The user that leveled up the user
+            The author that leveled up the user.
         </div>
 
     </li>
@@ -1953,7 +2802,7 @@
         
 
         <div class="param-description">
-            The user that leveled up
+            The user that leveled up.
         </div>
 
     </li>
@@ -1980,7 +2829,7 @@
         
 
         <div class="param-description">
-            The user data
+            The user data.
         </div>
 
     </li>
@@ -2049,7 +2898,7 @@
 
 	
 	<div class="event-description">
-			Degrade event, emitted when a user degrade another user
+			Emitted when a user has degraded by another person like an admin or a moderator (staff).
 	</div>
 	
 
@@ -2210,7 +3059,7 @@
 
 	
 	<div class="event-description">
-			Degrade rank event, emitted when a user degrade the rank of another user
+			Emitted when a user has been degraded by another person like an admin or a moderator (staff).
 	</div>
 	
 
@@ -2248,7 +3097,7 @@
         
 
         <div class="param-description">
-            The author that degrade the rank of the user
+            The author that degrade the rank of the user.
         </div>
 
     </li>
@@ -2275,7 +3124,7 @@
         
 
         <div class="param-description">
-            The user that degrade the rank
+            The user that degrade the rank.
         </div>
 
     </li>
@@ -2302,7 +3151,7 @@
         
 
         <div class="param-description">
-            The user data
+            The user data.
         </div>
 
     </li>
@@ -2371,7 +3220,7 @@
 
 	
 	<div class="event-description">
-			Level up event, emitted when a user levels up
+			Emitted when a user has leveled up by reaching the max xp required.
 	</div>
 	
 
@@ -2409,7 +3258,7 @@
         
 
         <div class="param-description">
-            The user that leveled up
+            The user that leveled up.
         </div>
 
     </li>
@@ -2436,7 +3285,114 @@
         
 
         <div class="param-description">
-            The user data
+            The user data.
+        </div>
+
+    </li>
+    
+</ul>
+
+
+
+
+<div class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+	
+
+	
+
+	
+
+	
+
+	
+
+</article>
+
+        
+            
+
+<article class="event">
+	<div class="event-type">
+		
+	</div>
+
+	<h4 class="event-name" id="event:managerReady">
+		managerReady
+	</h4>
+
+	
+	<div class="event-description">
+			Emitted when the manager is ready.
+	</div>
+	
+
+	
+
+	
+
+	
+
+
+    <h4 class="method-heading">Properties</h4>
+    
+
+<ul class="method-params">
+
+
+    <li>
+        
+            <span class="param-name">client</span>
+        
+
+        
+            
+
+
+    <span class="param-type">
+        <code>Discord.Client</code>
+    </span>
+    
+
+        
+
+        
+
+        
+
+        <div class="param-description">
+            The Discord client.
         </div>
 
     </li>
@@ -2505,7 +3461,7 @@
 
 	
 	<div class="event-description">
-			Rank up event, emitted when a user rank up another user
+			Emitted when a user has been promoted.
 	</div>
 	
 
@@ -2521,33 +3477,6 @@
 
 <ul class="method-params">
 
-
-    <li>
-        
-            <span class="param-name">author</span>
-        
-
-        
-            
-
-
-    <span class="param-type">
-        <code>Discord.User</code>
-    </span>
-    
-
-        
-
-        
-
-        
-
-        <div class="param-description">
-            The author that rank up the user
-        </div>
-
-    </li>
-    
 
     <li>
         
@@ -2666,7 +3595,7 @@
 
 	
 	<div class="event-description">
-			Xp added event, emitted when xp is added to a user
+			Emitted when a user receives xp by different methods like send a message, join a VC, react to a message, etc.You will do that manually.
 	</div>
 	
 
@@ -2704,7 +3633,7 @@
         
 
         <div class="param-description">
-            The user that received the xp
+            The user who received the xp.
         </div>
 
     </li>
@@ -2731,7 +3660,7 @@
         
 
         <div class="param-description">
-            The xp that was added
+            The xp that was added.
         </div>
 
     </li>
@@ -2800,7 +3729,7 @@
 
 <footer class="layout-footer">
   <div class="container">
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Mon Dec 19 2022 01:05:49 GMT-0600 (hora estándar central)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Wed Dec 21 2022 03:04:14 GMT-0600 (hora estándar central)
   </div>
 </footer>
 
