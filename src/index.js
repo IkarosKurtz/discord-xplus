@@ -1,5 +1,5 @@
 const { LevelManager } = require('./structures/LevelManager')
 const { RankBuilder } = require('./structures/Rank')
-const { LevelManagerEvents, Ranks } = require('./structures/interfaces')
+const { LevelManagerEvents } = require('./structures/interfaces')
 
-module.exports = { LevelManager, RankBuilder, LevelManagerEvents, Ranks }
+module.exports = { LevelManager, RankBuilder, LevelManagerEvents }

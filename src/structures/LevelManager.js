@@ -1,144 +1,254 @@
-const EventEmitter = require('events')
-const Discord = require('discord.js')
 const Users = require('../model')
+const Discord = require('discord.js')
+const EventEmitter = require('events')
 const { connect } = require('mongoose')
 const { readdirSync } = require('fs')
-const { Ranks, Regex, LevelManagerEvents } = require('./interfaces')
 const { RankBuilder } = require('./Rank')
+const { Ranks, Regex, LevelManagerEvents } = require('./interfaces')
 
 /** @typedef {import('../../typings').UsersDatabase} UsersDatabase */
 /** @typedef {import('../../typings').Rank} Rank */
 /** @typedef {import('../../typings').UserData} UserData */
 /** @typedef {import('../../typings').LevelManagerOptions} LevelManagerOptions */
+/** @typedef {import('./interfaces').xpFunction} xpFunction */
 
 /**
- * Create a manager for levels and manipulate users' data
+ * Creates a LevelManager, this is the main class, when you create a new instance of this class, it will automatically connect to the database and load the users
+ * (if you already used the manager), also will load the events if you specified the path to the events folder in the options, but if you don't have a folder
+ * or you doesn't know how it works, you can visit {@tutorial Level-events} to learn how to create and use events.
  * @extends {EventEmitter}
  */
 class LevelManager extends EventEmitter {
 	/**
 	 * Creates an instance of LevelManager.
-	 * @param {LevelManagerOptions} options - The options for the manager
-	 * @param {Discord.Client} discordClient - The Discord client
+	 * @param {Discord.Client} client - The Discord client or a custom client of Discord.js.
+	 * @param {LevelManagerOptions} options - The options for the manager.
 	 */
-	constructor(options, discordClient) {
+	constructor(client, options) {
 		super()
-		/**
-		 * @type {Discord.Client} - The Discord client
-		 * @public
-		 */
-		this.client = discordClient
+
+		// #region Validation
+
+		if (client && typeof client !== 'object')
+			throw new TypeError('The client must be a Discord.js client or must be extended from it.')
+
+		if (options && typeof options !== 'object') throw new TypeError('The options must be an object.')
+
+		if (options.mongoURI && typeof options.mongoURI !== 'string') throw new TypeError('The mongoURI must be a string.')
+
+		if (options.maxXpToLevelUp && typeof options.maxXpToLevelUp !== 'number')
+			throw new TypeError('The maxXpToLevelUp must be a number.')
+
+		if (options.logChannelId && typeof options.logChannelId !== 'string')
+			throw new TypeError('The logChannelId must be a string.')
+
+		if (options.eventsPath && typeof options.eventsPath !== 'string') throw new TypeError('The eventsPath must be a string.')
+
+		// @ts-ignore
+		if (options.ranks && !Array.isArray(options.ranks) && options.ranks.length === 0)
+			throw new TypeError('The ranks must be an object.')
+
+		if (options.calculateXpFunction && typeof options.calculateXpFunction !== 'function')
+			throw new TypeError('The calculateXpFunction must be a function.')
+
+		if (options.autosave && typeof options.autosave !== 'boolean') throw new TypeError('The autosave must be a boolean.')
+
+		if (options.msToSave && typeof options.msToSave !== 'number') throw new TypeError('The msToSave must be a number.')
+
+		// #endregion
+
+		// #region  Properties
 
 		/**
-		 * @type {string}
-		 * @description - URL of mongo database
+		 * @type {Discord.Client} - The Discord client or a custom client of Discord.js.
 		 * @private
 		 */
-		this.mongoURI = options.mongoURI
+		this._client = client
 
 		/**
-		 * @type {number}  - Xp needed to level up, will be increased in each level
+		 * @type {string} - URL of mongo database.
 		 * @private
 		 */
-		this.maxXpToLevelUp = options.maxXpToLevelUp ?? 2500
+		this._mongoURI = options.mongoURI
 
 		/**
-		 * @type {Discord.Snowflake | undefined} - Text channel id where it will be send log messages
+		 * @type {number} - Xp needed to level up, will be increased in each level.
 		 * @private
 		 */
-		this.logChannelId = options.logChannelId
+		this._maxXpToLevelUp = options.maxXpToLevelUp ?? 1500
 
 		/**
-		 * @type {string | undefined} - Path to the events folder
+		 * @type {Discord.Snowflake | undefined} - Text channel id where it will be send log messages.
 		 * @private
 		 */
-		this.eventsPath = options.eventsPath
+		this._logChannelId = options.logChannelId
 
 		/**
-		 * @type {Discord.Collection<string, Discord.Collection<string, UserData>>} - The users in each guild
+		 * @type {string | undefined} - Path to the events folder.
 		 * @private
 		 */
-		this.cache = new Discord.Collection()
+		this._eventsPath = options.eventsPath
 
 		/**
-		 * @type {Array<Rank>} - The ranks of the server
-		 * @public
+		 * @type {Discord.Collection<string, Discord.Collection<string, UserData>>} - The users in each guild.
+		 * @private
+		 */
+		this._cache = new Discord.Collection()
+
+		/**
+		 * @type {Discord.Collection<Discord.Snowflake, Array<Rank>>} - The ranks of the server.
+		 * @private
+		 */
+		this._ranks = new Discord.Collection()
+
+		const existingValues = []
+
+		/**
+		 * @type {Array<Rank>} - The default ranks of the manager.
+		 * @private
 		 */
 		// @ts-ignore
-		this.cacheRanks = options.ranks?.map((rank) => (rank instanceof RankBuilder ? rank.toRank() : rank)) ?? Ranks
+		this._defaultRanks =
+			options.ranks?.map((rank) => {
+				if (rank instanceof RankBuilder) {
+					return rank.toJSON()
+					// @ts-ignore
+				} else if (typeof rank === 'object' && rank.nameplate && rank.value) {
+					return rank
+				}
+
+				throw new TypeError('The rank must be an instance of RankBuilder or an Rank object.')
+			}) ?? Ranks
+
+		this._defaultRanks.forEach((rank) => {
+			if (!existingValues.includes(rank.value)) {
+				existingValues.push(rank.value)
+			} else {
+				throw new Error(`The value ${rank.value} is already in use in another rank, please change it. (Rank: ${rank.nameplate})`)
+			}
+		})
 
 		/**
-		 * @type {boolean} - If the manager will save the data automatically
-		 * @public
+		 * @type {boolean} - If the manager will save the data automatically.
+		 * @private
 		 */
-		this.autosave = options.autosave ?? true
+		this._autosave = options.autosave ?? true
+
+		/**
+		 * @type {xpFunction} - Function to calculate the xp needed to level up.
+		 * @private
+		 */
+		this._calculateXpToLevelUp = options.calculateXpFunction ?? ((level, xp) => level * 2500)
+
+		/**
+		 * @type {number} - The time in milliseconds to save the data.
+		 * @private
+		 */
+		this._msToSave = options.msToSave ?? 1000 * 60 * 60 * 4
+
+		// #endregion
 
 		this._init()
 	}
 
+	// #region Getters and Setters
+
 	/**
-	 * @return {Array<Rank>}
-	 * @private
+	 * Indicates if the manager saves the data automatically, by default it is every 3 hours, but you can change it.
+	 * @type {boolean}
+	 * @return {boolean} - If the manager will save the data automatically.
 	 */
-	get ranks() {
-		return this.cacheRanks
+	get autosave() {
+		return this._autosave
 	}
 
 	/**
-	 * @param {Array<Rank | RankBuilder>} ranks - The ranks of the server
+	 * @param {boolean} value - If the manager will save the data automatically.
 	 * @private
 	 */
-	set ranks(ranks) {
-		/** @type {Array<Rank>} */
-		const ranksArray = []
+	set autosave(value) {
+		if (typeof value !== 'boolean') throw new TypeError('Parameter must be a boolean.')
+
+		this._autosave = value
+	}
+
+	/**
+	 * Default ranks of the manager, it can be the default ranks or the ranks that you specified in the options, if you change this, it will be overwrite the default ranks.
+	 * @type {Array<Rank>}
+	 * @return {Array<Rank>} - The default ranks of the manager.
+	 */
+	get defaultRanks() {
+		return this._defaultRanks
+	}
+
+	/**
+	 * @param {Array<Rank | RankBuilder>} ranks - The new default ranks of the manager.
+	 * @private
+	 */
+	set defaultRanks(ranks) {
+		if (!Array.isArray(ranks)) throw new TypeError('Parameter must be an array.')
+
+		if (ranks.length === 0) throw new Error('The array must have at least one rank.')
+
+		const newRanks = []
 		for (const rank of ranks) {
 			if (rank instanceof RankBuilder) {
-				ranksArray.push(rank.toRank())
+				newRanks.push(rank.toJSON())
+				continue
+			} else if (typeof rank === 'object' && rank.nameplate && rank.value) {
+				newRanks.push(rank)
 				continue
 			}
 
-			ranksArray.push(rank)
+			throw new TypeError('The ranks must be an instance of RankBuilder or an Rank object.')
 		}
 
-		this.cacheRanks = ranksArray
+		const existingValues = []
+
+		newRanks.sort((a, b) => a.value - b.value)
+		newRanks.forEach((rank) => {
+			if (!existingValues.includes(rank.value)) {
+				existingValues.push(rank.value)
+			} else {
+				throw new Error(`The value ${rank.value} is already in use in another rank, please change it. (Rank: ${rank.nameplate})`)
+			}
+		})
+
+		this._defaultRanks = newRanks
 	}
 
-	/**
-	 * @return {boolean} - If the manager will save the data automatically
-	 * @private
-	 */
-	get automaticSave() {
-		return this.autosave
-	}
+	// #endregion
+
+	// #region Private Methods
 
 	/**
-	 * @param {boolean} value - If the manager will save the data automatically
-	 * @private
-	 */
-	set automaticSave(value) {
-		this.autosave = value
-	}
-
-	/**
-	 * Initialize the database and the events
-	 * @returns {Promise<void>}
+	 * Initialize the database and the events.
+	 * @emits LevelManager#managerReady
+	 * @return {Promise<void>}
 	 * @private
 	 */
 	async _init() {
 		try {
-			await connect(this.mongoURI).then(async () => {
+			await connect(this._mongoURI).then(async () => {
 				console.log('\n☁ Successfully connected to the database')
-				if (this.eventsPath) {
+				if (this._eventsPath) {
 					await this._initEvents()
+				} else {
+					console.log('\n⚠ No events path provided')
 				}
-
-				console.log('\n⚠ No events path provided')
 
 				await this._loadCache()
 
-				if (this.autosave) {
-					setInterval(async () => await this.saveData(), 5_000)
-				}
+				setInterval(async () => {
+					if (this._autosave) await this.saveData()
+				}, 10_000)
+
+				/**
+				 * Emitted when the manager is ready.
+				 * @event LevelManager#managerReady
+				 * @property {Discord.Client} client - The Discord client.
+				 */
+				this.emit(LevelManagerEvents.ManagerReady, this._client)
 			})
 		} catch (error) {
 			console.log(error)
@@ -146,19 +256,19 @@ class LevelManager extends EventEmitter {
 	}
 
 	/**
-	 * Load events from the events folder only if they exist
-	 * @returns {Promise<void>}
+	 * Load events from the events folder only if they exist.
+	 * @return {Promise<void>}
 	 * @private
 	 */
 	async _initEvents() {
 		try {
 			// Read the events folder and filter the files that end with .js
-			const files = await readdirSync(`${this.eventsPath}`).filter((file) => file.endsWith('.js'))
+			const files = await readdirSync(`${this._eventsPath}`).filter((file) => file.endsWith('.js'))
 			const events = []
 
 			// Loop through the files and require them
 			for (const file of files) {
-				const event = require(`${this.eventsPath}/${file}`)
+				const event = require(`${this._eventsPath}/${file}`)
 
 				// Check if the event has a type and a run method
 				if (!event.type || !event.run) {
@@ -174,7 +284,7 @@ class LevelManager extends EventEmitter {
 
 			if (events.length < 1) return console.log('\n⚠ No events found')
 
-			console.log(`☁ Successfully loaded ${events.length} events.\n`)
+			console.log(`☁ Successfully loaded ${events.length === 1 ? `${events.length} event.` : `${events.length} events.`}\n`)
 			console.table(events)
 
 			return
@@ -185,14 +295,14 @@ class LevelManager extends EventEmitter {
 	}
 
 	/**
-	 * Load the cache from the database and store it in the manager
-	 * @returns {Promise<void>}
+	 * Load the cache from the database and store it in the manager.
+	 * @return {Promise<void>}
 	 * @private
 	 */
 	async _loadCache() {
 		try {
 			// Get all the guilds from the database
-			/** @type {UsersDatabase[]} */
+			/** @type {Array<UsersDatabase>} */
 			const dataBase = await Users.find()
 
 			// Loop through the guilds and store the users in a collection
@@ -200,8 +310,9 @@ class LevelManager extends EventEmitter {
 				const usersInGuild = new Discord.Collection()
 
 				for (const users of guild.data) usersInGuild.set(users.userId, users)
+				this._ranks.set(guild.guildId, guild.ranks)
 
-				this.cache.set(guild.guildId, usersInGuild)
+				this._cache.set(guild.guildId, usersInGuild)
 			}
 
 			console.log('☁ Successfully loaded the cache')
@@ -213,57 +324,27 @@ class LevelManager extends EventEmitter {
 	}
 
 	/**
-	 * Basic filters to check if the user and guild ids are valid
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.Snowflake} guildId - The guild id
+	 * Basic filters to check if the user and guild ids are valid.
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.Snowflake} guildId - The guild id.
 	 * @return {Promise<void>}
 	 * @private
 	 */
 	async _basicFilters(userId, guildId) {
-		if (!userId || typeof userId !== 'string' || !Regex.test(userId)) throw new Error('You must provide a valid user id')
+		if (typeof userId !== 'string' || !Regex.test(userId)) throw new Error('You must provide a valid user id')
 
-		if (!guildId || typeof guildId !== 'string' || (guildId !== 'global' && !Regex.test(guildId)))
-			throw new Error('You must provide a valid guild id')
+		if (typeof guildId !== 'string' || (guildId !== 'global' && !Regex.test(guildId))) throw new TypeError('Invalid guild id.')
 	}
 
 	/**
-	 * Save the cache into the database
-	 * @returns {Promise<void>}
-	 */
-	async saveData() {
-		// save the cache to the database in guilds
-		// @ts-ignore
-		for (const guild of this.cache) {
-			let guildData = await Users.findOne({ guildId: guild[0] })
-
-			if (!guildData) {
-				guildData = new Users({
-					guildId: guild[0],
-					data: guild[1].map((value) => value)
-				})
-
-				await guildData.save().catch((error) => console.log(error))
-
-				return
-			}
-
-			guildData.data = guild[1].map((value) => value)
-
-			await guildData.save().catch((error) => console.log(error))
-		}
-	}
-
-	/**
-	 * Create a user in the cache and store it in their guild
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.Snowflake} guildId - The guild id (optional, if not provided then it will be global)
-	 * @return {Promise<UserData>} - The user data
+	 * Create a new user's record in the cache.
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.Snowflake} guildId - The guild id (optional, if not provided then it will be global).
+	 * @return {Promise<UserData>} - The user data.
 	 * @private
 	 */
 	async _createUser(userId, guildId) {
-		await this._basicFilters(userId, guildId)
-
-		const userGuild = await this.client.users.fetch(userId)
+		const userGuild = await this._client.users.fetch(userId)
 
 		/** @type {UserData} */
 		const user = {
@@ -271,36 +352,81 @@ class LevelManager extends EventEmitter {
 			username: userGuild.username,
 			xp: 0,
 			level: 0,
-			maxXpToLevelUp: this.maxXpToLevelUp,
+			maxXpToLevelUp: this._maxXpToLevelUp,
 			messages: [],
-			rank: this.cacheRanks[0]
+			rank: this._defaultRanks[0]
 		}
 
 		// Check if the guild exists in the cache
-		if (!this.cache.has(guildId)) {
+		if (!this._cache.has(guildId)) {
 			const guild = new Discord.Collection()
 
 			guild.set(userId, user)
 
-			this.cache.set(guildId, guild)
+			this._cache.set(guildId, guild)
+			this._ranks.set(guildId, this._defaultRanks)
 		}
 
-		this.cache.get(guildId)?.set(userId, user)
+		this._cache.get(guildId)?.set(userId, user)
 
 		return user
 	}
 
+	// #endregion
+
 	/**
-	 * Get a user from the cache, if the user doesn't exist it will be created
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.Snowflake} guildId - The guild id
-	 * @return {Promise<UserData>}
+	 * Save all the data from the cache to the database and overwrite the data if it already exists, more info {@tutorial Saving-data}.
+	 * @return {Promise<void>}
 	 * @public
 	 */
-	async getUser(userId, guildId) {
+	async saveData() {
+		try {
+			// save the cache to the database in guilds
+			// @ts-ignore
+			for (const guild of this._cache) {
+				/** @type {UsersDatabase} */
+				let guildData = await Users.findOne({ guildId: guild[0] })
+
+				// If the guild doesn't exist in the database then create a new one
+				if (!guildData) {
+					guildData = new Users({
+						guildId: guild[0],
+						ranks: this._defaultRanks,
+						data: guild[1].map((value) => value)
+					})
+
+					await guildData.save()
+					continue
+				}
+
+				// Save the users' data
+				guildData.data = guild[1].map((value) => {
+					if (value.messages.length > 3000) value.messages = value.messages.slice(0, 1500)
+
+					return value
+				})
+
+				// Update ranks
+				guildData.ranks = this._ranks.get(guild[0])
+
+				await guildData.save()
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	/**
+	 * Get a user from the cache, if the user doesn't exist it will be created and then will be saved automatically, for more info check {@tutorial Saving-data}.
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @return {Promise<UserData>} - User's data.
+	 * @public
+	 */
+	async getUser(userId, guildId = 'global') {
 		await this._basicFilters(userId, guildId)
 
-		let user = await this.cache.get(guildId)?.get(userId)
+		let user = await this._cache.get(guildId)?.get(userId)
 
 		if (!user) user = await this._createUser(userId, guildId)
 
@@ -308,168 +434,204 @@ class LevelManager extends EventEmitter {
 	}
 
 	/**
-	 * Add xp to a user, also check if the user has leveled up
+	 * Adds xp to a user, then will be saved, for more info check {@tutorial Saving-data}.
 	 * @emits LevelManager#levelUp
 	 * @emits LevelManager#xpAdded
-	 * @param {number} xp - The xp to add, only positive and integer numbers
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.Snowflake} guildId - The guild id
+	 * @emits LevelManager#rankUp
+	 * @param {number} xp - The xp to add, only positive and integer numbers.
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
 	 * @return {Promise<void>}
 	 * @public
 	 */
 	async addXp(xp, userId, guildId = 'global') {
-		await this._basicFilters(userId, guildId)
+		if (typeof xp !== 'number' || xp < 0 || !Number.isInteger(xp)) throw new Error('You must provide a valid xp')
 
-		if (!xp || typeof xp !== 'number' || xp < 0 || !Number.isInteger(xp)) throw new Error('You must provide a valid xp')
+		const userData = await this.getUser(userId, guildId)
+		userData.xp += xp
 
-		const user = await this.getUser(userId, guildId)
-		user.xp += xp
+		// Check if the user is in the correct rank
+		userData.rank = this._ranks.get(guildId)?.find((rank) => userData.level >= rank.min && userData.level <= rank.max)
 
 		/**
-		 * Xp added event, emitted when xp is added to a user
+		 * Emitted when a user receives xp by different methods like send a message, join a VC, react to a message, etc.
+		 * You will do that manually.
 		 * @event LevelManager#xpAdded
-		 * @property {UserData} user - The user that received the xp
-		 * @property {number} xp - The xp that was added
+		 * @property {UserData} user - The user who received the xp.
+		 * @property {number} xp - The xp that was added.
 		 */
-		this.emit(LevelManagerEvents.XpAdded, user, xp)
+		this.emit(LevelManagerEvents.XpAdded, userData, xp)
 
-		if (user.xp >= user.maxXpToLevelUp) {
-			user.level++
-			user.maxXpToLevelUp = user.level * this.maxXpToLevelUp
-			user.xp -= user.maxXpToLevelUp
+		if (userData.xp >= userData.maxXpToLevelUp) {
+			userData.level++
+			userData.maxXpToLevelUp = this._calculateXpToLevelUp(userData.level, userData.xp)
+			userData.xp -= userData.maxXpToLevelUp
 
-			if (user.level > user.rank.max) {
-				const index = this.cacheRanks.indexOf(user.rank)
+			// If the user has reached the max level then we promote him to the next rank
+			if (userData.level > userData.rank.max) {
+				const ranks = this.ranksOf(guildId)
+				const index = ranks.indexOf(userData.rank)
 
-				user.rank = this.cacheRanks[index + 1]
+				userData.rank = ranks[index + 1]
+
+				const user = await this._client.users.fetch(userId)
+
+				/**
+				 * Emitted when a user has been promoted.
+				 * @property {Discord.User} user - The user that rank up
+				 * @property {UserData} userData - The user data
+				 */
+				this.emit(LevelManagerEvents.RankUp, user, userData)
 			}
 
 			/**
-			 * Level up event, emitted when a user levels up
-			 *
+			 * Emitted when a user has leveled up by reaching the max xp required.
 			 * @event LevelManager#levelUp
-			 * @property {Discord.User} user - The user that leveled up
-			 * @property {UserData} userData - The user data
+			 * @property {Discord.User} user - The user that leveled up.
+			 * @property {UserData} userData - The user data.
 			 */
-			this.emit(LevelManagerEvents.LevelUp, this.client.users.cache.get(userId), user)
+			this.emit(LevelManagerEvents.LevelUp, this._client.users.cache.get(userId), userData)
 		}
 
-		user.xp = Math.floor(user.xp)
-
-		this.cache.get(guildId)?.set(userId, user)
+		userData.xp = Math.floor(userData.xp)
 	}
 
 	/**
-	 * Level up a user manually, reset the xp to 0 and check if the user reach the max level of the rank
+	 * Level up a user manually, reset the xp to 0 and check if the user reach the max level of the rank.
+	 * If the user has reached the maximum rank, they will be able to continue leveling up.
 	 * @emits LevelManager#bypass
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.User} author - The author of the command/action
-	 * @param {Discord.Snowflake} guildId - The guild id
-	 * @return {Promise<boolean>}
+	 * @emits LevelManager#rankUp
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.User} author - The author of the command/action.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @return {Promise<boolean>} - If the user has leveled up or if an error occurred.
 	 */
 	async levelUp(userId, author, guildId = 'global') {
-		await this._basicFilters(userId, guildId)
-
 		try {
 			const userData = await this.getUser(userId, guildId)
 
 			userData.level++
-			userData.maxXpToLevelUp = userData.level * this.maxXpToLevelUp
 			userData.xp = 0
+			userData.maxXpToLevelUp = this._calculateXpToLevelUp(userData.level, userData.xp)
+
+			const user = await this._client.users.fetch(userId)
 
 			if (userData.level > userData.rank.max) {
-				const index = this.cacheRanks.indexOf(userData.rank)
+				const ranks = this.ranksOf(guildId)
 
-				userData.rank = this.cacheRanks[index + 1]
+				const nextRank = ranks.find((r) => r.value === userData.rank.value + 1)
 
-				const user = await this.client.users.fetch(userId)
+				if (!nextRank) return false
 
-				/**
-				 * Level up event, emitted when a user levels up
-				 *
-				 * @event LevelManager#bypass
-				 * @property {Discord.User} author - The user that leveled up the user
-				 * @property {Discord.User} user - The user that leveled up
-				 * @property {UserData} userData - The user data
-				 */
-				this.emit(LevelManagerEvents.Bypass, author, user, userData)
-			}
-
-			return true
-		} catch (error) {
-			console.log(error)
-			return false
-		}
-	}
-
-	/**
-	 * Degrade the level of a user, reset the xp to 0 and check if the user reach the min level of the rank
-	 * @emits LevelManager#degradeLevel
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.User} author - The author of the command/action
-	 * @param {Discord.Snowflake} guildId - The guild id
-	 * @return {Promise<boolean>}
-	 */
-	async degradeLevel(userId, author, guildId = 'global') {
-		await this._basicFilters(userId, guildId)
-
-		try {
-			const userData = await this.getUser(userId, guildId)
-
-			userData.level--
-			userData.maxXpToLevelUp = userData.level * this.maxXpToLevelUp
-			userData.xp = 0
-
-			if (userData.level < userData.rank.min) {
-				const index = this.cacheRanks.indexOf(userData.rank)
-
-				userData.rank = this.cacheRanks[index - 1]
-
-				const user = await this.client.users.fetch(userId)
+				userData.rank = nextRank
 
 				/**
-				 * Degrade event, emitted when a user degrade another user
-				 * @event LevelManager#degradeLevel
-				 * @property {Discord.User} author - The author that degraded the user
-				 * @property {Discord.User} user - The user that degraded
+				 * Emitted when a user has been promoted.
+				 * @property {Discord.User} user - The user that rank up
 				 * @property {UserData} userData - The user data
 				 */
-				this.emit(LevelManagerEvents.DegradeLevel, author, user, userData)
+				this.emit(LevelManagerEvents.RankUp, user, userData)
 			}
-
-			return true
-		} catch (error) {
-			console.log(error)
-			return false
-		}
-	}
-
-	/**
-	 * Rank up a user manually
-	 * @emits LevelManager#rankUp
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.User} author - The author of the command/action
-	 * @param {Discord.Snowflake} guildId - The guild id
-	 * @return {Promise<boolean>}
-	 */
-	async rankUp(userId, author, guildId = 'global') {
-		await this._basicFilters(userId, guildId)
-
-		try {
-			const userData = await this.getUser(userId, guildId)
-			const index = this.cacheRanks.indexOf(userData.rank)
-
-			userData.rank = this.cacheRanks[index + 1]
-			const user = await this.client.users.fetch(userId)
 
 			/**
-			 * Rank up event, emitted when a user rank up another user
+			 * Emitted when a user has leveled up by another person like an admin or a moderator (staff)..
+			 * @event LevelManager#bypass
+			 * @property {Discord.User} author - The author that leveled up the user.
+			 * @property {Discord.User} user - The user that leveled up.
+			 * @property {UserData} userData - The user data.
+			 */
+			this.emit(LevelManagerEvents.Bypass, author, user, userData)
+
+			return true
+		} catch (error) {
+			console.log(error)
+			return false
+		}
+	}
+
+	/**
+	 * Degrade the level of a user, reset the xp to 0 and check if the user reach the min level of the rank.
+	 * @emits LevelManager#degradeLevel
+	 * @emits LevelManager#rankUp
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.User} author - The author of the command/action.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @return {Promise<boolean>} - If the user has been degraded or if an error occurred.
+	 */
+	async degradeLevel(userId, author, guildId = 'global') {
+		try {
+			const userData = await this.getUser(userId, guildId)
+
+			if (userData.level === 0) return false
+
+			userData.level--
+			userData.xp = 0
+			userData.maxXpToLevelUp = this._calculateXpToLevelUp(userData.level === 0 ? 1 : userData.level, userData.xp)
+
+			const user = await this._client.users.fetch(userId)
+
+			if (userData.level < userData.rank.min) {
+				const ranks = this.ranksOf(guildId)
+
+				const nextRank = ranks.find((r) => r.value === userData.rank.value - 1)
+
+				userData.rank = nextRank
+
+				/**
+				 * Emitted when a user has been promoted.
+				 * @property {Discord.User} user - The user that rank up
+				 * @property {UserData} userData - The user data
+				 */
+				this.emit(LevelManagerEvents.RankUp, user, userData)
+			}
+
+			/**
+			 * Emitted when a user has degraded by another person like an admin or a moderator (staff).
+			 * @event LevelManager#degradeLevel
+			 * @property {Discord.User} author - The author that degraded the user
+			 * @property {Discord.User} user - The user that degraded
+			 * @property {UserData} userData - The user data
+			 */
+			this.emit(LevelManagerEvents.DegradeLevel, author, user, userData)
+
+			return true
+		} catch (error) {
+			console.log(error)
+			return false
+		}
+	}
+
+	/**
+	 * Promote a user manually, for more info about ranks check {@tutorial ranks}.
+	 * @emits LevelManager#rankUp
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @return {Promise<boolean>} - If the user has been promoted or if an error occurred.
+	 */
+	async rankUp(userId, guildId = 'global') {
+		try {
+			const userData = await this.getUser(userId, guildId)
+			const ranks = this.ranksOf(guildId)
+
+			if (userData.rank.value === ranks.length - 1) return false
+
+			const nextRank = ranks.find((r) => r.value === userData.rank.value + 1)
+			userData.xp = 0
+
+			userData.rank = nextRank
+			userData.level = nextRank.min
+
+			userData.maxXpToLevelUp = this._calculateXpToLevelUp(userData.level, userData.xp)
+
+			const user = await this._client.users.fetch(userId)
+
+			/**
+			 * Emitted when a user has been promoted.
 			 * @event LevelManager#rankUp
-			 * @property {Discord.User} author - The author that rank up the user
 			 * @property {Discord.User} user - The user that rank up
 			 * @property {UserData} userData - The user data
 			 */
-			this.emit(LevelManagerEvents.RankUp, author, user, userData)
+			this.emit(LevelManagerEvents.RankUp, user, userData)
 
 			return true
 		} catch (error) {
@@ -479,29 +641,38 @@ class LevelManager extends EventEmitter {
 	}
 
 	/**
-	 * Degrade a user manually
+	 * Degrade a user manually, for more info about ranks check {@tutorial ranks}.
+	 * You can't degrade a user if he is already in the lowest rank.
 	 * @emits LevelManager#degradeRank
-	 * @param {Discord.Snowflake} userId - The user id
-	 * @param {Discord.User} author - The author of the command/action
-	 * @param {Discord.Snowflake} guildId - The guild id
-	 * @return {Promise<boolean>}
+	 * @param {Discord.Snowflake} userId - The user id.
+	 * @param {Discord.User} author - The author of the command/action.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @return {Promise<boolean>} - If the user has been degraded or if an error occurred.
 	 */
 	async degradeRank(userId, author, guildId = 'global') {
-		await this._basicFilters(userId, guildId)
-
 		try {
-			const userData = await this.getUser(userId, guildId)
-			const index = this.cacheRanks.indexOf(userData.rank)
+			if (!author || typeof author !== 'object' || !author.id) throw new Error('The author must be a Discord User.')
 
-			userData.rank = this.cacheRanks[index - 1]
-			const user = await this.client.users.fetch(userId)
+			const userData = await this.getUser(userId, guildId)
+			const ranks = this.ranksOf(guildId)
+
+			if (userData.rank.value === 0) return false
+
+			const nextRank = ranks.find((r) => r.value === userData.rank.value - 1)
+
+			userData.xp = 0
+			userData.rank = nextRank
+			userData.level = nextRank.min
+			userData.maxXpToLevelUp = this._calculateXpToLevelUp(userData.level === 0 ? 1 : userData.level, userData.xp)
+
+			const user = await this._client.users.fetch(userId)
 
 			/**
-			 * Degrade rank event, emitted when a user degrade the rank of another user
+			 * Emitted when a user has been degraded by another person like an admin or a moderator (staff).
 			 * @event LevelManager#degradeRank
-			 * @property {Discord.User} author - The author that degrade the rank of the user
-			 * @property {Discord.User} user - The user that degrade the rank
-			 * @property {UserData} userData - The user data
+			 * @property {Discord.User} author - The author that degrade the rank of the user.
+			 * @property {Discord.User} user - The user that degrade the rank.
+			 * @property {UserData} userData - The user data.
 			 */
 			this.emit(LevelManagerEvents.DegradeRank, author, user, userData)
 
@@ -510,6 +681,119 @@ class LevelManager extends EventEmitter {
 			console.log(error)
 			return false
 		}
+	}
+
+	/**
+	 * Get guild leaderboard or global leaderboard, get as many users as you want
+	 * @param {number} [limit=10] - The number of users that you want to get.
+	 * @param {Discord.Snowflake} [guildId="global"] - Id of the guild that you want to get the leaderboard.
+	 * @return {Promise<Array<UserData>>} - The users data.
+	 */
+	async leaderboard(limit = 10, guildId = 'global') {
+		if (typeof guildId !== 'string' || typeof limit !== 'number' || (guildId !== 'global' && !Regex.test(guildId)))
+			throw new TypeError('Invalid type of arguments, guildId must be a string and limit must be a number.')
+
+		if (!Number.isInteger(limit) || limit < 1) throw new RangeError('Limit must be a positive integer')
+
+		if (!this._cache.has(guildId)) {
+			console.error('Guild not found')
+			return undefined
+		}
+
+		if (!Regex.test(guildId)) {
+			console.error('Invalid guild id')
+			return undefined
+		}
+		const guildUsers = this._cache.get(guildId).map((user) => user)
+
+		// Copy the array because sort() is mutating the array
+		const sortedUsers = [...guildUsers].sort((a, b) => b.level - a.level)
+
+		return sortedUsers.slice(0, sortedUsers.length < limit ? sortedUsers.length : limit)
+	}
+
+	/**
+	 * Get the ranks of a guild or default ranks, for more info about ranks check {@tutorial ranks}.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @returns {Array<Rank>} - Ranks in guild.
+	 */
+	ranksOf(guildId = 'global') {
+		if (typeof guildId !== 'string' || (guildId !== 'global' && !Regex.test(guildId))) throw new TypeError('Invalid guild id.')
+
+		if (!this._ranks.has(guildId)) {
+			this._ranks.set(guildId, this._defaultRanks)
+		}
+
+		return this._ranks.get(guildId)
+	}
+
+	/**
+	 * Append ranks to the manager and re-sort the ranks by their value and it can be RankBuilder or Rank object, for more info about ranks check {@tutorial ranks}.
+	 * @param  {Array<Rank | RankBuilder>} ranks - Array of ranks to append.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @return {Array<Rank>} - The new sorted ranks.
+	 */
+	appendRank(ranks, guildId = 'global') {
+		if (typeof guildId !== 'string' || (guildId !== 'global' && !Regex.test(guildId))) throw new TypeError('Invalid guild id.')
+
+		if (!Array.isArray(ranks)) throw new TypeError('Ranks must be an array.')
+
+		const guildRanks = this.ranksOf(guildId)
+		for (const rank of ranks) {
+			if (rank instanceof RankBuilder) {
+				// @ts-ignore
+				if (rank._missingData()) {
+					throw new Error('RankBuilder must have all the required data.')
+				}
+
+				guildRanks.push(rank.toJSON())
+
+				continue
+			} else if (!(rank instanceof RankBuilder) && typeof rank === 'object' && rank.nameplate) {
+				guildRanks.push(rank)
+				continue
+			}
+
+			throw new TypeError('Invalid rank.')
+		}
+
+		const existingValues = []
+		guildRanks.forEach((rank, index) => {
+			if (!existingValues.includes(rank.value)) {
+				existingValues.push(rank.value)
+			} else {
+				throw new Error(`The value ${rank.value} is already in use in another rank, please change it. (Rank: ${rank.nameplate})`)
+			}
+		})
+
+		return guildRanks.sort((a, b) => a.value - b.value)
+	}
+
+	/**
+	 * Remove ranks from the manager and re-sort the ranks by their value, for more info about ranks check {@tutorial ranks}.
+	 * @param  {Array<number>} values - Property value of the ranks to remove.
+	 * @param {Discord.Snowflake} [guildId="global"] - The guild id.
+	 * @return {Array<Rank>} - The new sorted ranks.
+	 */
+	removeRank(values, guildId = 'global') {
+		if (typeof guildId !== 'string' || (guildId !== 'global' && !Regex.test(guildId))) throw new TypeError('Invalid guild id.')
+
+		if (!Array.isArray(values)) throw new TypeError('Values must be an array.')
+
+		if (values.some((value) => typeof value !== 'number' && !Number.isInteger(value)))
+			throw new TypeError('Values must be an array of integers.')
+
+		const guildRanks = this.ranksOf(guildId)
+		const temp = [...guildRanks]
+		for (const rank of temp) {
+			if (!values.includes(rank.value)) continue
+
+			const index = guildRanks.indexOf(rank)
+
+			guildRanks.splice(index, 1)
+		}
+
+		return guildRanks.sort((a, b) => a.value - b.value)
 	}
 }
 
