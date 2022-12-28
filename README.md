@@ -22,7 +22,7 @@ Well you can visit documentation, if you are already there visit the first tutor
 <img src="https://img.shields.io/npm/v/discord-xplus?logo=npm"/>
 <img src="https://img.shields.io/bundlephobia/min/discord-xplus"/>
 <img src="https://img.shields.io/github/repo-size/IkarosKurtz/discord-xplus?logo=github"/>
-<img src="https://img.shields.io/npm/dw/discord-xplus?logo=npm"/>
+<img src="https://img.shields.io/npm/dt/discord-xplus?logo=npm&style=flat-square"/>
 </p>
 
 # Installation
