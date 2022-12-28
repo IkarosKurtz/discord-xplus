@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const { RankBuilder } = require('./Rank')
+const { RankBuilder } = require('./Ranks/Rank')
 
 /**
  * Callback function to calculate the XP to level up.
@@ -83,15 +83,20 @@ const { RankBuilder } = require('./Rank')
  *
  */
 
+/** @typedef {import("./Achievements/Achievement").AchievementBuilder} AchievementBuilder */
+
 /**
  * The data that will be saved in the database.
  * @typedef {Object} UserData
+ * @template [T=any]
  * @property {Discord.Snowflake} userId - The ID of the user.
  * @property {string} username - The username of the user.
  * @property {number} xp - The XP of the user.
  * @property {number} level - The level of the user.
  * @property {number} maxXpToLevelUp - The maximum XP to level up.
  * @property {Array<Discord.Snowflake>} messages - The messages of the user.
+ * @property {T} [extraData] - Extra data that will be saved in the database.
+ * @property {Array<AchievementBuilder>} [achievements] - Achievements of the user.
  * @property {Rank} rank - The rank of the user.
  */
 
@@ -113,7 +118,10 @@ const { RankBuilder } = require('./Rank')
  * @property {Array<UserData>} data - The data of the users.
  */
 
-exports.LevelManagerEvents = Object.freeze({
+/**
+ * @readonly
+ */
+const LevelManagerEvents = Object.freeze({
 	ManagerReady: 'managerReady',
 	XpAdded: 'xpAdded',
 	LevelUp: 'levelUp',
@@ -123,11 +131,17 @@ exports.LevelManagerEvents = Object.freeze({
 	DegradeRank: 'degradeRank'
 })
 
-/** @type {RegExp} - Validates if the string is a number */
-exports.Regex = /^[0-9]+$/
+/**
+ * @type {RegExp} - Regex to check if the string is a number
+ * @readonly
+ */
+const Regex = /^[0-9]+$/
 
-/** @type {Array<Rank>} - Default ranks implemented in the manager */
-exports.Ranks = [
+/**
+ * @type {Array<Rank>} - Default ranks implemented in the manager
+ * @readonly
+ */
+const Ranks = [
 	{
 		nameplate: 'Beta',
 		color: '#FCFFE7',
@@ -185,3 +199,5 @@ exports.Ranks = [
 		value: 7
 	}
 ]
+
+module.exports = { Ranks, Regex, LevelManagerEvents }

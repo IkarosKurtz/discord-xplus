@@ -1,4 +1,4 @@
-/** @typedef {import("../../typings").Rank} Rank */
+/** @typedef {import("../../../typings").Rank} Rank */
 
 /** Builder for the rank class, it must have all the data to be implemented in the manager in order to work */
 class RankBuilder {

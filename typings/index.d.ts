@@ -2,13 +2,15 @@ import EventEmitter from 'events'
 import { Document } from 'mongoose'
 import { Client, Collection, ColorResolvable, Snowflake, User } from 'discord.js'
 
-export declare class LevelManager extends EventEmitter {
+// #region LEVEL MANAGER
+
+export declare class LevelManager<T = any> extends EventEmitter {
 	private _client: Client
 	private _mongoURI: string
 	private _maxXpToLevelUp: number
 	private _logChannelId: Snowflake | undefined
 	private _eventsPath: string | undefined
-	private _cache: Collection<Snowflake, Collection<Snowflake, UserData>>
+	private _cache: Collection<Snowflake, Collection<Snowflake, UserData<T, K>>>
 	private _ranks: Collection<Snowflake, Array<Rank>>
 	private _defaultRanks: Array<Rank>
 	private _autosave: boolean
@@ -35,7 +37,7 @@ export declare class LevelManager extends EventEmitter {
 	private _initEvents(): Promise<void>
 	private _loadCache(): Promise<void>
 	private _basicFilters(userId: Snowflake, guildId: Snowflake): Promise<void>
-	private _createUser(userId: Snowflake, guildId: Snowflake): Promise<UserData>
+	private _createUser(userId: Snowflake, guildId: Snowflake): Promise<UserData<T, K>>
 	/**
 	 * Save all the data from the cache to the database and overwrite the data if it already exists, more info {@tutorial Saving-data}.
 	 */
@@ -46,7 +48,7 @@ export declare class LevelManager extends EventEmitter {
 	 * @param  guildId - The guild id.
 	 * @return - User's data.
 	 */
-	public getUser(userId: Snowflake, guildId: Snowflake): Promise<UserData>
+	public getUser(userId: Snowflake, guildId: Snowflake): Promise<UserData<T, K>>
 	/**
 	 * Adds xp to a user, then will be saved, for more info check {@tutorial Saving-data}.
 	 * @param xp - The xp to add, only positive and integer numbers.
@@ -93,7 +95,7 @@ export declare class LevelManager extends EventEmitter {
 	 * @param guildId - Id of the guild that you want to get the leaderboard.
 	 * @return - The users data.
 	 */
-	public leaderboard(limit: number = 10, guildId: Snowflake = 'global'): Promise<Array<UserData>>
+	public leaderboard(limit: number = 10, guildId: Snowflake = 'global'): Promise<Array<UserData<T, K>>>
 	/**
 	 * Get the ranks of a guild or default ranks, for more info about ranks check {@tutorial ranks}.
 	 * @param guildId - The guild id.
@@ -115,6 +117,60 @@ export declare class LevelManager extends EventEmitter {
 	 */
 	public removeRank(values: Array<number>, guildId: Snowflake = 'global'): Array<Rank>
 }
+
+export interface LevelManagerOptions<T = any, K = any> {
+	mongoURI: string
+	maxXpToLevelUp?: number
+	logChannelId?: Snowflake
+	eventsPath?: string
+	ranks?: Array<Rank | RankBuilder>
+	autosave?: boolean
+	calculateXpFunction?: (level: number, xp: number) => number
+	msToSave?: number
+	extraData?: T
+	achievementExtraData?: K
+}
+
+export interface UserData<T = any, k = any> {
+	userId: Snowflake
+	username: string
+	xp: number
+	level: number
+	maxXpToLevelUp: number
+	messages: Array<Snowflake>
+	extraData?: T
+	achievement: Array<Achievement<K>>
+	rank: Rank
+}
+
+export interface Rank {
+	nameplate: string
+	color: string | ColorResolvable
+	value: number
+	min: number
+	max: number
+}
+
+export interface UsersDatabase<T = any, K = any> extends Document {
+	guildId: Snowflake
+	ranks: Array<Rank>
+	achievements: Array<Achievement<K>>
+	data: Array<UserData<T, K>>
+}
+
+export declare enum LevelManagerEvents {
+	ManagerReady = 'managerReady',
+	XpAdded = 'xpAdded',
+	LevelUp = 'levelUp',
+	DegradeLevel = 'degradeLevel',
+	Bypass = 'bypass',
+	RankUp = 'rankUp',
+	DegradeRank = 'degradeRank'
+}
+
+// #endregion
+
+// #region Rank Builder
 
 export declare class RankBuilder {
 	private _data: Rank
@@ -157,47 +213,61 @@ export declare class RankBuilder {
 	public setValue(value: number): this
 }
 
-export interface LevelManagerOptions {
-	mongoURI: string
-	maxXpToLevelUp?: number
-	logChannelId?: Snowflake
-	eventsPath?: string
-	ranks?: Array<Rank | RankBuilder>
-	autosave?: boolean
-	calculateXpFunction?: (level: number, xp: number) => number
-	msToSave?: number
+// #endregion
+
+// #region Achievements
+
+export declare class AchievementBuilder<T = any> {
+	private _data: AchievementOptions<T>
+	constructor(data: AchievementOptions<T>)
+	/**
+	 * The data of the achievement.
+	 */
+	public get data(): AchievementOptions<T>
+	/**
+	 * @param name - The name of the achievement.
+	 */
+	public setName(name: string): this
+	/**
+	 * @param description - The description of the achievement.
+	 */
+	public setDescription(description: string): this
+	/**
+	 * @param image - The image of the achievement.
+	 */
+	public setImage(image: string): this
+	/**
+	 * @param type - The type of the achievement.
+	 */
+	public setType(type: AchievementType): this
+	/**
+	 * @param extraData - Extra data of the achievement.
+	 */
+	public setExtraData(extraData: Omit<AchievementOptions<T>, 'name' | 'description' | 'image' | 'type'>): this
+	/**
+	 * Returns a string representation of the achievement.
+	 */
+	public toString(): string
+	/**
+	 * Returns a plain JSON object with the data of the achievement.
+	 * @returns {AchievementOptions<T>}
+	 */
+	public toJSON(): AchievementOptions<T>
 }
 
-export interface UserData {
-	userId: Snowflake
-	username: string
-	xp: number
-	level: number
-	maxXpToLevelUp: number
-	messages: Array<Snowflake>
-	rank: Rank
+export interface AchievementOptions<T = any> {
+	name: string
+	description: string
+	thumbnail?: string
+	type: AchievementType
+	extraData?: T
 }
 
-export interface Rank {
-	nameplate: string
-	color: string | ColorResolvable
-	value: number
-	min: number
-	max: number
+export type Achievement<K = any> = AchievementOptions<K>
+
+export declare enum AchievementType {
+	Progressive = 0,
+	OneAction = 1
 }
 
-export interface UsersDatabase extends Document {
-	guildId: Snowflake
-	ranks: Array<Rank>
-	data: Array<UserData>
-}
-
-export declare enum LevelManagerEvents {
-	ManagerReady = 'managerReady',
-	XpAdded = 'xpAdded',
-	LevelUp = 'levelUp',
-	DegradeLevel = 'degradeLevel',
-	Bypass = 'bypass',
-	RankUp = 'rankUp',
-	DegradeRank = 'degradeRank'
-}
+// #endregion

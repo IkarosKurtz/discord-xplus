@@ -3,6 +3,7 @@ const { model, Schema } = require('mongoose')
 const UserSchema = new Schema({
 	guildId: { type: String, required: true },
 	ranks: { type: Array, default: [] },
+	achievements: { type: Array, default: [] },
 	data: { type: Array, default: [] }
 })
 
