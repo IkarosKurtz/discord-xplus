@@ -20,7 +20,7 @@ class Guild {
      * @param {Discord.Client} client
      * @param {import('../../typings').GuildData} data
      */
-  constructor (client, data) {
+  constructor(client, data) {
     if (!client) throw new Error('Missing argument: client')
 
     if (!(client instanceof Discord.Client)) throw new TypeError('Client must be a Discord Client instance.')
@@ -120,7 +120,7 @@ class Guild {
    *
    * @param {Number} priority
    */
-  async deleteRank (priority) {
+  async removeRank (priority) {
     if (!priority) throw new Error('Missing argument: priority')
 
     if (typeof priority !== 'number') throw new TypeError('Priority must be a number.')
@@ -139,7 +139,7 @@ class Guild {
    *
    * @param {String} name
    */
-  async deleteAchievement (name) {
+  async removeAchievement (name) {
     if (!name) throw new Error('Missing argument: name')
 
     if (typeof name !== 'string') throw new TypeError('Name must be a string.')

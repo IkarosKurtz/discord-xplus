@@ -125,18 +125,18 @@ describe('Guild', () => {
     expect(guild.achievements.cache.size).toBe(1)
   })
 
-  /* deleteRank */
+  /* removeRank */
   it('Throw an error if priority of rank is not provided or is other type ', () => {
     const guild = new Guild(client, { guildId: '1', ranks: [], achievements: [], users: [] })
 
-    expect(async () => await guild.deleteRank()).rejects.toThrow('Missing argument: priority')
-    expect(async () => await guild.deleteRank('priority')).rejects.toThrow('Priority must be a number.')
+    expect(async () => await guild.removeRank()).rejects.toThrow('Missing argument: priority')
+    expect(async () => await guild.removeRank('priority')).rejects.toThrow('Priority must be a number.')
   })
 
   it('Throw an error if rank is not in the guild', () => {
     const guild = new Guild(client, { guildId: '1', ranks: [], achievements: [], users: [] })
 
-    expect(async () => await guild.deleteRank(1)).rejects.toThrow('Rank not found.')
+    expect(async () => await guild.removeRank(1)).rejects.toThrow('Rank not found.')
   })
 
   it('Delete a rank from the guild', async () => {
@@ -145,23 +145,23 @@ describe('Guild', () => {
 
     expect(guild.ranks.cache.size).toBe(1)
 
-    await guild.deleteRank(1)
+    await guild.removeRank(1)
 
     expect(guild.ranks.cache.size).toBe(0)
   })
 
-  /* deleteAchievement */
+  /* removeAchievement */
   it('Throw an error if name of achievement is not provided or is other type ', () => {
     const guild = new Guild(client, { guildId: '1', ranks: [], achievements: [], users: [] })
 
-    expect(async () => await guild.deleteAchievement()).rejects.toThrow('Missing argument: name')
-    expect(async () => await guild.deleteAchievement(1)).rejects.toThrow('Name must be a string.')
+    expect(async () => await guild.removeAchievement()).rejects.toThrow('Missing argument: name')
+    expect(async () => await guild.removeAchievement(1)).rejects.toThrow('Name must be a string.')
   })
 
   it('Throw an error if achievement is not in the guild', () => {
     const guild = new Guild(client, { guildId: '1', ranks: [], achievements: [], users: [] })
 
-    expect(async () => await guild.deleteAchievement('test')).rejects.toThrow('Achievement not found.')
+    expect(async () => await guild.removeAchievement('test')).rejects.toThrow('Achievement not found.')
   })
 
   it('Delete a achievement from the guild', async () => {
@@ -170,9 +170,10 @@ describe('Guild', () => {
 
     expect(guild.achievements.cache.size).toBe(1)
 
-    await guild.deleteAchievement('test')
+    const res = await guild.removeAchievement('test')
 
     expect(guild.achievements.cache.size).toBe(0)
+    expect(res).toStrictEqual(achievement.toJSON())
   })
 
   /* toJSON */
@@ -182,5 +183,63 @@ describe('Guild', () => {
     const guild = new Guild(client, { guildId: '1', ranks: [rank.toJSON()], achievements: [achievement.toJSON()], users: [] })
 
     expect(guild.toJSON()).toEqual({ guildId: '1', ranks: [rank.toJSON()], achievements: [achievement.toJSON()], users: [] })
+  })
+
+  /* appendAchievement: update user */
+  it('Should update user when append achievement', async () => {
+    const achievement = new AchievementBuilder({ name: 'test', description: 'test', reward: 100, type: 1 })
+
+    const achievement2 = new AchievementBuilder({ name: 'test2', description: 'test2', reward: 100, type: 1 })
+
+    const rank = new RankBuilder({ nameplate: 'test', color: 'Red', max: 2, min: 3, priority: 1 })
+
+    /** @type {import('../typings').UserData} */
+    const userData = {
+      id: '1',
+      achievements: [achievement2.toJSON()],
+      level: 1,
+      xp: 0,
+      rank: [rank.toJSON()],
+      maxXpToLevelUp: 100,
+      messages: [],
+      username: 'ikaros'
+    }
+
+    const guild = new Guild(client, { guildId: '1', ranks: [], achievements: [], users: [userData] })
+
+    await guild.appendAchievement(achievement)
+
+    const user = guild.users.cache.get('1')
+
+    expect(user.achievements).toContain(achievement2.toJSON())
+  })
+
+  /* removeAchievement: update user */
+  it('Should update user when remove achievement', async () => {
+    const achievement = new AchievementBuilder({ name: 'test', description: 'test', reward: 100, type: 1 })
+
+    const achievement2 = new AchievementBuilder({ name: 'test2', description: 'test2', reward: 100, type: 1 })
+
+    const rank = new RankBuilder({ nameplate: 'test', color: 'Red', max: 2, min: 3, priority: 1 })
+
+    /** @type {import('../typings').UserData} */
+    const userData = {
+      id: '1',
+      achievements: [achievement.toJSON(), achievement2.toJSON()],
+      level: 1,
+      xp: 0,
+      rank: [rank.toJSON()],
+      maxXpToLevelUp: 100,
+      messages: [],
+      username: 'ikaros'
+    }
+
+    const guild = new Guild(client, { guildId: '1', ranks: [], achievements: [achievement.toJSON(), achievement2.toJSON()], users: [userData] })
+
+    await guild.removeAchievement('test2')
+
+    const user = guild.users.cache.get('1')
+
+    expect(user.achievements).toStrictEqual([achievement.toJSON()])
   })
 }, { timeout: 1000 * 60 * 5 })

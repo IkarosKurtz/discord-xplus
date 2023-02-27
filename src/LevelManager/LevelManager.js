@@ -41,7 +41,7 @@ class LevelManager extends EventEmitter {
    * @param {Discord.Client} client - Discord client
    * @param {import('../../typings').LevelManagerOptions} options - Options for the level manager
    */
-  constructor (client, options) {
+  constructor(client, options) {
     super()
 
     if (!client) throw new TypeError('Missing argument: client')
@@ -232,6 +232,16 @@ class LevelManager extends EventEmitter {
       const guilds = []
 
       for (const chunk of bunch) {
+        for (const achievement of chunk.achievements) {
+          for (const user of chunk.users) {
+            for (let userAchievement of user.achievements) {
+              if (userAchievement.name === achievement.name && userAchievement.type === achievement.type && userAchievement.description === achievement.description) continue
+
+              userAchievement = achievement
+            }
+          }
+        }
+
         const guild = new Guild(this.client, chunk)
 
         guilds.push(guild)
